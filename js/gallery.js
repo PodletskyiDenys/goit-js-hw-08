@@ -66,26 +66,23 @@ const images = [
 
 function createGallery({ preview, original, description }) {
   return `<li class="gallery-item">
-  <a class="gallery-link" href=${original}>
+  <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
-      src=${preview}
-      data-source=${original}
-      alt=${description}
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>`;
 }
 
-const newGalleryCode = images.map((image) => createGallery(image)).join("");
-
 const galleryList = document.querySelector(".gallery");
-
-galleryList.innerHTML = newGalleryCode;
+galleryList.innerHTML = images.map(createGallery).join("");
 
 galleryList.addEventListener("click", (event) => {
   event.preventDefault();
-  if (event.target === event.currentTarget) {
+  if (event.target.tagName !== "IMG") {
     return;
   }
   const modalWindow = basicLightbox.create(
